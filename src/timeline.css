@@ -1,0 +1,48 @@
+#controls {
+    margin-bottom: 20px;
+}
+#play-pause {
+    width: 20px;
+    height: 20px;
+    left: 2%;
+    border-radius: 0px;
+    background-color: rgba(212, 180, 115, 0.4);
+    position: absolute;
+    border: none;
+}
+#timeline {
+    display: flex;
+    left:5%;
+    /* top: 0px; */
+    /* right:5px; */
+    justify-content: space-between;  /* space-between  flex-start*/
+    margin-bottom: 20px;
+    position: relative;
+    width: 92%
+}
+#timeline:before {
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0;
+    right: 0;
+    height: 20px;
+    width: 100%;
+    background-color: rgba(231, 214, 162, 0.2);
+}
+#timeline div {
+    width: 50px;
+    height: 20px;
+    left: 0;
+    right: 0;
+    border-radius: 0px;
+    background-color: rgba(212, 180, 115, 0.4);
+    text-align: center;
+    line-height: 30px;
+    position: relative;
+    z-index: 1;
+    /* margin-right: 200px; */
+}
+#timeline div.active {
+    background-color: rgba(156, 75, 4, 0.726);
+}

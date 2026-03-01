@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+
+
+    <title>EmoGeoCity</title>
+    <link href="./src/main.css" rel="stylesheet" type="text/css" />
+    <link href="./src/navi.css" rel="stylesheet" type="text/css" />
+    <link href="./src/timeline.css" rel="stylesheet" type="text/css" />
+    <link href="./src/chart2.css" rel="stylesheet" type="text/css" />
+    <link href="./src/chart3.css" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <link rel="stylesheet" href="src/lib/jquery.range.css">
+    <script src="js/lib/jquery.range-min.js"></script>
+
+    <script src="https://webapi.amap.com/maps?v=1.4.15&key=dd7682b0a9bc71e5ccb48d30b0a42f1c"></script>
+    <script src="https://a.amap.com/jsapi_demos/static/demo-center/js/demoutils.js"></script>
+
+</head>
+
+<body>
+    <img src="./images/金陵.png" class="bg-image" id="bg-image">
+    <header>
+        <!-- <img id="move-btn" class="move-btn" src="./images/logo3.png"> -->
+        <img id="move-btn" class="move-btn">
+        <span id="header-text" class="header-text">EmoGeoCity</span>
+        <div id='switchmode-btn' style="position: absolute; top: 10px; right: 5px; font-family: JinlingXi; font-size: 10px;font-style: italic; text-decoration:underline;cursor: pointer">Color Mode</div>
+    </header>
+
+
+
+    <div id="main">
+
+        <div class="select-box">
+
+
+            <!-- 介绍......
+                        This paper presents a novel approach to studying the historical geography of Nanjing, China, through the use of digital humanities methods and emotional geography.  -->
+
+            <!-- 左侧中间的border -->
+            <div style="position: absolute; top: 39%; width: 100%; border-bottom: 1px solid rgba(14, 54, 33, 0.325);"></div>
+            <div style="position: absolute; top: 5px; left: 5px; font-family: JinlingXi; font-size: 15px; font-weight: 600;">Map Info View</div>
+            <div style="position: absolute; top: calc(39% + 5px); left: 5px; font-family: JinlingXi; font-size: 15px; font-weight: 600;">Distribution View</div>
+            <div class="info-box"></div> <!--   style="overflow-x: scroll;"   -->
+            <div style="padding-left: 10px;">
+
+                <div class="location-search-box">
+                    <div style="width: 100px; line-height: 18px;font-size: 12px;">Location Search:</div>
+                    <div>
+                        <input type="text" id="location-search-input" />
+                        <div class="location-search-autocomplete-box">
+                            <!-- autocomplete -->
+                        </div>
+                    </div>
+                </div>
+                <p style="display: inline-block;font-size: 12px;width: 98px; ">Location Layout:</p>
+                <button id="toggle-layout-btn" class="toggle-layout-btn">Map</button>
+                <br>
+                <p style="display: inline-block;font-size: 12px;  width: 98px; ">Display Options</p>
+                <div style="display: inline;font-size: 12px;  " class="dropdown-wrapper">
+                    <select id="selectBox1">
+                        <option value="">All</option>
+                        <option value="地点">Location</option>
+                        <option value="作品">Work</option>
+                        <option value="事件">Event</option>
+                    </select>
+                </div>
+                <br>
+                <p style="display: inline-block;font-size: 12px;width: 98px;  ">Category of Works:</p>
+                <div style="display: inline; font-size: 12px;  " class="dropdown-wrapper">
+                    <select id="selectBox4">
+                    </select>
+                </div>
+                <br>
+                <p style="display: inline-block;font-size: 12px;width: 98px;  ">Emotion of Works:</p>
+                <div style="display: inline; font-size: 12px;  " class="dropdown-wrapper">
+                    <select id="selectBox2">
+                        <option value="">All</option>
+                        <option value="悲">Grief</option>
+                        <option value="惧">Fear</option>
+                        <option value="乐">Happy</option>
+                        <option value="怒">Anger</option>
+                        <option value="思">Miss</option>
+                        <option value="喜">Delight</option>
+                        <option value="忧">Depress</option>
+                    </select>
+                </div>
+                <br>
+                <p style="display: inline-block;font-size: 12px; width: 98px; ">Name of Nanjing:</p>
+                <div style="display: inline; font-size: 12px; " class="dropdown-wrapper">
+                    <select id="selectBox3">
+                        <option value="">All</option>
+                        <option value="金陵">金陵</option>
+                        <option value="建康">建康</option>
+                        <option value="建业">建业</option>
+                        <option value="秣陵">秣陵</option>
+                        <option value="南京">南京</option>
+                        <option value="孝陵">孝陵</option>
+                    </select>
+                </div>
+                <div style="font-size: 12px;margin-top: 8px;">Importance Score of Events</div>
+            </div>
+            <div class="event-score-slider"
+                style="display: flex; flex-direction: row; justify-content: center; margin-top: 18px;">
+                <input type="hidden" class="range-slider" value="0,10" />
+            </div>
+
+            <!--             <br>
+            <label id="graph_select"></label>
+            <label class="navi_right btn_chart1">
+                <button class="navi_btn">白鹭芳洲</button>&nbsp;
+            </label>
+            <br>
+            <label class="navi_right btn_chart2">
+                <button class="navi_btn">桨声灯影</button>&nbsp;
+            </label>
+            <br>
+            <label class="navi_right btn_chart3">
+                <button class="navi_btn">天下文枢</button>&nbsp;
+            </label> -->
+            <div class="overview">
+                <!-- <div class="overview_grad"></div> -->
+                <div class="overview_bar"></div>
+                <div class="overview_wenti" style="display: none;"></div>
+            </div>
+        </div>
+        <div id="container">
+            <div id="graph" style="font-size: 12px; color:#515151">
+                <!-- <svg id="map" width="1000" height="200"></svg> -->
+                <div class="chart5">
+                    <!-- <img class="river-image" src="./images/timeline.jpg"> -->
+                    <!-- <div id="river">
+                        <button id="play-pause-btn">Play/Pause</button>
+                    </div> -->
+                </div>
+            </div>
+
+            <!-- <div id="right-view"> -->
+            <div class="chart"></div>
+            <!-- <div class="chart2">
+            <div class="chart2_line"></div>
+            <div class="chart2_wc"></div>
+            <div class="chart2_bar"></div>
+            <div class="chart2_list"></div>
+            <svg>
+                <linearGradient id="textGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="20%" stop-color="#ffffff"></stop>
+                    <stop offset="100%" stop-color="#0082ff"></stop>
+                </linearGradient>
+            </svg>
+        </div> -->
+            <div class="chart3"></div>
+            <div class="chart3-control-btn">>Close</div>
+
+
+        </div>
+        <div class="chart4">
+            <div id="info-container"></div>
+            <div class="chart2_wc"></div>
+            <div class="chart2_list"></div>
+        </div>
+
+        <!-- </div> -->
+    </div>
+    <!-- <footer>
+        <div id="river">
+            <button id="play-pause-btn">Play/Pause</button>
+        </div>
+    </footer>  -->
+
+</body>
+<script src="./js/global_config.js"></script>
+<script src="js/constant.js"></script>
+<script src="./js/lib/echarts.js"></script>
+<script src="js/lib/echarts-wordcloud.js"></script>
+<script src="js/info-box.js"></script>
+<script src="js/map.js"></script>
+<script src="js/timeline_river_d3.js"></script>
+<script src="js/land.js"></script>
+<script src="js/chart3.js"></script>
+<script src="js/overview.js"></script>
+<script src="js/chart2.js"></script>
+<!-- <script src="js/chart4.js"></script> -->
+<script src="js/btn_click.js"></script>
+<script src="js/toggle-layout.js"></script>
+
+</html>

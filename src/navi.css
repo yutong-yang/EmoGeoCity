@@ -1,0 +1,68 @@
+header #title{
+    font-family:JinlingCu;
+    font-size: 1.4rem;
+}
+header label{
+    position: relative;
+    top: 0%;
+    height: 50%;
+}
+header #graph_select{
+    display: inline-block;
+    width: 30%;
+}
+/* header .navi_right{
+    position: relative;
+    display: inline-block;
+    width: 8%;
+}
+header .navi_right .navi_btn{
+    height: 100%;
+    width: 30px;
+    border: none;
+
+    font-family: JinlingXi;
+    font-weight: 500;
+    font-size: 1.4rem;
+    background: transparent;
+} */
+header .navi_right{
+    position: relative;
+    display: inline-block;
+    width: 8%;
+    /* margin-top: -15px; */
+    /* float: right;  将按钮容器移到右侧 */
+    /* display: flex; */
+     /* 使用 flex 布局 */ 
+}
+   
+header .navi_right .navi_btn{
+    height: 60px; /* 增加高度 */
+    width: 80px; /* 增加宽度 */
+    border: none;
+    font-family: JinlingXi;
+    font-weight: 500;
+    font-size: 0.8rem; /* 减小字体大小 */
+    background: transparent;
+    /* position:absolute; */
+}
+
+header .btn_chart1{
+    position: absolute;
+    right: 30%;
+}
+
+header .btn_chart2{
+    position: absolute;
+    right: 15%;
+}
+
+header .btn_chart3{
+    position: absolute;
+    right: 0%;
+}
+   
+.navi_btn:hover {
+    transition: all 0.3s ease;
+    border-top: 1px solid black;
+}

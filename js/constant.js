@@ -1,0 +1,2 @@
+let dyn = "";
+let cat = "";
