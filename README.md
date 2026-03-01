@@ -1,2 +1,3 @@
-# chinavis2023
-tt各种调整
+# EmoGeoCity
+
+Emotional Geography Visualization of Jinling
